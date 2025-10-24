@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE DAILY 5 - 5 Headlines That Matter Every Day</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .serif {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+        }
+
+        @keyframes rotate-logo {
+            0%, 95% {
+                transform: rotate(0deg);
+                opacity: 1;
+            }
+            5%, 10% {
+                transform: rotate(18deg);
+                opacity: 0;
+            }
+            10.1%, 95% {
+                opacity: 1;
+            }
+            100% {
+                transform: rotate(360deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes show-secondary {
+            0%, 5% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            5.5%, 9.5% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            10%, 100% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+        }
+
+        .logo-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+
+        .logo-primary {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            animation: rotate-logo 20s ease-in-out infinite;
+            will-change: transform;
+            transform: translateZ(0);
+        }
+
+        .logo-secondary {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            opacity: 0;
+            animation: show-secondary 20s ease-in-out infinite;
+            will-change: opacity, transform;
+            transform: translateZ(0);
+        }
+
+        .logo-primary img,
+        .logo-secondary img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .story-card {
+            transition: all 0.3s ease;
+            will-change: transform;
+        }
+
+        .story-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .story-image {
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .ad-placeholder {
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            border: 2px dashed #d1d5db;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            color: #6b7280;
+        }
+
+        @media (max-width: 768px) {
+            .logo-container {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+
+                <!-- Left: Live Clocks -->
+                <div class="flex flex-col gap-2 text-sm md:text-base font-medium text-gray-700">
+                    <div id="ist-clock">IST: --:--:--</div>
+                    <div id="est-clock">EST: --:--:--</div>
+                </div>
+
+                <!-- Center: Logo -->
+                <div class="flex flex-col items-center">
+                    <div class="logo-container">
+                        <div class="logo-primary">
+                            <img src="/public/logo.png" alt="TD5 Logo">
+                        </div>
+                        <div class="logo-secondary">
+                            <img src="/public/logo 2.png" alt="Six Lions">
+                        </div>
+                    </div>
+                    <h1 class="serif text-2xl md:text-4xl font-bold mt-3 text-gray-900">THE DAILY 5</h1>
+                    <p class="text-xs md:text-sm text-gray-600 mt-1">5 Headlines That Matter Every Day</p>
+                </div>
+
+                <!-- Right: Date -->
+                <div class="text-sm md:text-base font-medium text-gray-700 text-right">
+                    <div id="current-date">Loading...</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+
+            <!-- Left Sidebar - Ads -->
+            <aside class="lg:w-64 flex-shrink-0">
+                <div class="sticky top-32 space-y-6">
+                    <div class="ad-placeholder rounded-lg h-64 text-lg">Ad 1</div>
+                    <div class="ad-placeholder rounded-lg h-64 text-lg">Ad 2</div>
+                    <div class="ad-placeholder rounded-lg h-64 text-lg">Ad 3</div>
+                </div>
+            </aside>
+
+            <!-- Main Stories Grid -->
+            <section class="flex-1">
+                <div id="stories-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Stories will be inserted here by JavaScript -->
+                </div>
+
+                <!-- Admin Controls -->
+                <div class="mt-12 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <h2 class="serif text-2xl font-bold mb-6 text-gray-900">Content Management</h2>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Upload Story Image</label>
+                            <input type="file" id="story-image" accept="image/*" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white focus:outline-none">
+                            <p class="mt-1 text-xs text-gray-500">Maximum size: 20MB</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Story Content (max 300 characters)</label>
+                            <textarea id="story-content" rows="4" maxlength="300" class="block w-full px-4 py-2 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Enter your story content here..."></textarea>
+                            <p class="mt-1 text-xs text-gray-500"><span id="char-count">0</span>/300 characters</p>
+                        </div>
+
+                        <button id="add-story-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200">
+                            Add Story
+                        </button>
+
+                        <button id="clear-all-btn" class="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200">
+                            Clear All Stories
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Sidebar - Ads -->
+            <aside class="lg:w-64 flex-shrink-0">
+                <div class="sticky top-32 space-y-6">
+                    <div class="ad-placeholder rounded-lg h-64 text-lg">Ad 4</div>
+                    <div class="ad-placeholder rounded-lg h-64 text-lg">Ad 5</div>
+                    <div class="ad-placeholder rounded-lg h-64 text-lg">Ad 6</div>
+                </div>
+            </aside>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 border-t border-gray-200 mt-16">
+        <div class="container mx-auto px-4 py-6 text-center text-sm text-gray-600">
+            © 2025 THE DAILY 5 | All Rights Reserved
+        </div>
+    </footer>
+
+    <script type="module" src="/app.js"></script>
+</body>
+</html>
